@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 2019_08_18_222254) do
 
   create_table "units", force: :cascade do |t|
     t.string "name", null: false
+    t.string "unit_size", null: false
+    t.string "unit_strength", null: false
+    t.string "speed", null: false
+    t.string "melee", null: false
+    t.string "ranged", null: false
+    t.string "defense", null: false
+    t.string "attacks", null: false
+    t.string "points", null: false
+    t.text "special"
     t.bigint "army_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
