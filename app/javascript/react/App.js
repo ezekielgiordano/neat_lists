@@ -1,9 +1,11 @@
 import React from 'react'
+import ArmiesIndexContainer from './containers/ArmiesIndexContainer'
+import ArmyTile from './components/ArmyTile'
 
 const App = () => {
 	return (
 		<div>
-			<h1>THIS IS APP</h1>
+			<ArmiesIndexContainer />
 		</div>
 	)
 }
