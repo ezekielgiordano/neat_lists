@@ -1,6 +1,4 @@
 class Api::V1::ArmiesController < ApiController
- 	protect_from_forgery unless: -> { request.format.json? }
-
   	def index
     	render json: Army.order(:name)
   	end
@@ -37,6 +35,6 @@ class Api::V1::ArmiesController < ApiController
   	private
 
   	def army_data
-  		params.require(:name, :alignment)
+  		params.permit(:name, :alignment)
   	end
 end

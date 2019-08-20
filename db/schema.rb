@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2019_08_18_222254) do
 
   create_table "armies", force: :cascade do |t|
     t.string "name", null: false
+    t.string "alignment", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
