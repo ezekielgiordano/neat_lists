@@ -8,7 +8,7 @@ class ArmiesIndexContainer extends Component {
 		this.state = {
 			armies: []
 		}
-		this.addArmy = this.addArmy.bind(this)
+		this.addToDatabase = this.addToDatabase.bind(this)
 	}
 
 	componentDidMount() {
@@ -31,10 +31,12 @@ class ArmiesIndexContainer extends Component {
 		.catch(error => console.error(`Error in fetch: ${error.message}`))
 	}
 
-	addArmy(newArmy) {
+	addToDatabase(dataToAdd) {
 		fetch('/api/v1/armies', {
 			method: 'POST',
-			body: JSON.stringify(newArmy)
+			body: JSON.stringify(dataToAdd),
+			credentials: 'same-origin',
+        	headers: {'Content-Type': 'application/json'}
 		})
 		.then(response => {
 			if (response.ok) {
@@ -47,9 +49,9 @@ class ArmiesIndexContainer extends Component {
 		})
 		.then(response => response.json())
 		.then(body => {
-			let armiesWithNewArmy = this.state.armies.concat(body)
-			this.setState({
-				armies: armiesWithNewArmy
+			let updatedState = this.state.armies.concat(body)
+			this.setState({				
+				armies: updatedState
 			})
 		})
 		.catch(error => console.error(`Error in fetch: ${error.message}`))
@@ -57,7 +59,7 @@ class ArmiesIndexContainer extends Component {
 
 	render() {
 		const armyTiles = this.state.armies.map(army => {
-			return(
+			return (
 				<ArmyTile
 					key={army.id}
 					id={army.id}
@@ -67,10 +69,15 @@ class ArmiesIndexContainer extends Component {
 			)
 		})
 
-		return(
-			<div>
+		return (
+			<div className="index-container">
+				<h2>Armies</h2>
 				{armyTiles}
-				<ArmiesFormContainer addArmy={this.addArmy} />
+				<div className="form-container">
+					<ArmiesFormContainer
+						addToDatabase={this.addToDatabase}
+					/>
+				</div>
 			</div>
 		)
 	}

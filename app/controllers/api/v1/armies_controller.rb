@@ -1,6 +1,12 @@
 class Api::V1::ArmiesController < ApiController
   	def index
-    	render json: Army.order(:name)
+        unsorted_armies = Army.all
+        armies = unsorted_armies.sort {
+            |x, y| x.name.sub(/^(the|a|an)\s/i, "").downcase <=>
+            y.name.sub(/^(the|a|an)\s/i, "").downcase
+        }
+
+    	render json: armies
   	end
 
   	def show
@@ -8,10 +14,12 @@ class Api::V1::ArmiesController < ApiController
   	end
 
   	def create
-  		army = Army.new(army_data)
-
+  		army = Army.new({
+            name: params[:name],
+            alignment: params[:alignment]
+        })
   		if army.save
-  			render json: { army: army }
+  			render json: army
   		else
   			render json: { error: army.errors.full_messages.join(' * ') }
   		end
@@ -34,7 +42,7 @@ class Api::V1::ArmiesController < ApiController
 
   	private
 
-  	def army_data
-  		params.permit(:name, :alignment)
+  	def army_params
+  		params.require(:army).permit(:name, :alignment)
   	end
 end

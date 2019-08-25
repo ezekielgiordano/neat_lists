@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ArmyNameField from '../components/ArmyNameField'
-import ArmyAlignmentField from '../components/ArmyAlignmentField'
+import ArmyAlignmentDropdown from '../components/ArmyAlignmentDropdown'
 
 class ArmiesFormContainer extends Component {
 	constructor(props) {
@@ -8,6 +8,7 @@ class ArmiesFormContainer extends Component {
 		this.state = {
 			armyName: '',
 			armyAlignment: '',
+			alignmentOptions: ['Good', 'Evil', 'Neutral'],
 			errors: {}
 		}
 		this.validateName = this.validateName.bind(this)
@@ -18,49 +19,66 @@ class ArmiesFormContainer extends Component {
 		this.submitForm = this.submitForm.bind(this)
 	}
 
+	clearNameErrors(event) {
+		let errorState = this.state.errors
+		delete errorState.armyName
+		this.setState({
+			errors: errorState
+		})
+	}
+
+	clearAlignmentErrors(event) {
+		let errorState = this.state.errors
+		delete errorState.armyAlignment
+		this.setState({
+			errors: errorState
+		})
+	}
+
 	validateName(input) {
-		if(input.trim() === '') {
-			let newError = { name: 'You must enter a name' }
+		if (input.trim() === '') {
+			let newError = {
+				armyName: 'You must enter a name'
+			}
 			this.setState({
 				errors: Object.assign(this.state.errors, newError)
 			})
 			return false
 		} else {
-			let errorState = this.state.errors
-			delete errorState.armyName
-			this.setState({
-				errors: errorState
-			})
+			this.clearNameErrors()
 			return true
 		}
 	}
 
 	validateAlignment(input) {
-		if(input.trim() === '') {
-			let newError = { alignment: 'You must enter an alignment' }
+		if (input.trim() === '') {
+			let newError = {
+				armyAlignment: 'You must select an alignment'
+			}
 			this.setState({
 				errors: Object.assign(this.state.errors, newError)
 			})
 			return false
 		} else {
-			let errorState = this.state.errors
-			delete errorState.armyAlignment
-			this.setState({
-				errors: errorState
-			})
+			this.clearAlignmentErrors()
 			return true
 		}
 	}
 
 	updateName(event) {
-		this.validateName(event.target.value)
 		this.setState({
 			armyName: event.target.value
 		})
+		if (
+			this.state.armyName.trim() !== '' ||
+			this.state.armyName.length > 0
+		) {
+			this.clearNameErrors()
+		}
 	}
 
 	updateAlignment(event) {
-		this.validateAlignment(event.target.value)
+		this.clearAlignmentErrors()
 		this.setState({
 			armyAlignment: event.target.value
 		})
@@ -77,13 +95,20 @@ class ArmiesFormContainer extends Component {
 
 	submitForm(event) {
 		event.preventDefault()
-		
-		let newArmy = {
-			name: this.state.armyName,
-			alignment: this.state.armyAlignment
+		let dataToAdd = {
+			name: '',
+			alignment: ''
+		}				
+		if (this.validateName(this.state.armyName)) {
+			dataToAdd.name = this.state.armyName
 		}
-		this.props.addArmy(newArmy)
-		this.clearForm(event)
+		if (this.validateAlignment(this.state.armyAlignment)) {
+			dataToAdd.alignment = this.state.armyAlignment
+		}
+		if (dataToAdd.name != '' && dataToAdd.alignment != '') {
+			this.props.addToDatabase(dataToAdd)
+			this.clearForm(event)
+		}
 	}
 
 	render() {
@@ -91,30 +116,36 @@ class ArmiesFormContainer extends Component {
 		let errorItems
 		if (Object.keys(this.state.errors).length > 0) {
 			errorItems = Object.values(this.state.errors).map(error => {
-				return(<li key={error}>{error}</li>)
+				return (<li key={error}>{error}</li>)
 			})
-			errorDiv = <div>{errorItems}</div>
+			errorDiv = <div className="error-div">{errorItems}</div>
 		}
 
-		return(
+		return (
 			<form onSubmit={this.submitForm}>
+				<h3>Add New Army</h3>
 				{errorDiv}
-				<ArmyNameField
-					content={this.state.armyName}
-					label="Army Name"
-					name="army-name"
-					handlerFunction={this.updateName}
-				/><br />
-				<ArmyAlignmentField
-					content={this.state.armyAlignment}
-					label="Alignment"
-					name="army-alignment"
-					handlerFunction={this.updateAlignment}
-				/>
+				<div className="army-name-field">
+					<ArmyNameField
+						content={this.state.armyName}
+						label="Army Name:"
+						name="army-name"
+						handlerFunction={this.updateName}
+					/>
+				</div>
+				<div className="army-alignment-field">
+					<ArmyAlignmentDropdown
+						options={this.state.alignmentOptions}
+						selection={this.state.armyAlignment}
+						label="Alignment:"
+						name="army-alignment"
+						handlerFunction={this.updateAlignment}
+					/>
+				</div>
 
-				<div>
+				<div className="button-group">
 					<button onClick={this.clearForm}>Clear</button>
-					<input type="submit" value ="Add" />
+					<input type="submit" value="Add" />
 				</div>
 			</form>
 		)

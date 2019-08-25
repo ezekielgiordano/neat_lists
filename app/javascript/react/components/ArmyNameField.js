@@ -1,7 +1,7 @@
 import React from 'react'
 
-const ArmyNameField = (props) => {
-	return(
+const ArmyNameField = props => {
+	return (
 	    <label>{props.label}
 	      	<input
 	        	name={props.name}
