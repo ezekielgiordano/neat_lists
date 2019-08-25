@@ -17,3 +17,46 @@
 * {
 	font-family: Arial, sans-serif;
 }
+
+li {
+	list-style-type: none;
+}
+
+.error-div {
+	font-style: italic;
+	font-size: small;
+	opacity: 0.5;
+}
+
+.index-container {
+	border: 1px solid #000000;
+	padding: 10px;
+}
+
+.form-container {
+	border: 1px solid #000000;
+	padding: 10px;
+	margin: 10px 0px 10px 0px;
+}
+
+.delete-x {
+	user-select: none;
+	border: 1px solid #000000;
+	margin-right: 25px;
+}
+
+.army-tile {
+	margin: 5px 0px 5px 0px;
+}
+
+.button-group {
+	margin-top: 10px;
+}
+
+.army-name-field {
+	margin: 5px 0px 5px 0px;
+}
+
+.army-alignment-field {
+	margin: 5px 0px 5px 13.5px;
+}
