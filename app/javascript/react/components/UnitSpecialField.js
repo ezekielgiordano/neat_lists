@@ -1,10 +1,11 @@
 import React from 'react'
 
-const ArmyNameField = props => {
+const UnitSpecialField = props => {
 	return (
 	    <label>
 	    	{props.label}
-	      	<input
+	      	<textarea
+	      		rows="3"
 	        	name={props.name}
 	        	type='text'
 	        	value={props.content}
@@ -14,4 +15,4 @@ const ArmyNameField = props => {
 	)
 }
 	
-export default ArmyNameField
+export default UnitSpecialField

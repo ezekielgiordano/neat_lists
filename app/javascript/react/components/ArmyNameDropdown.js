@@ -1,9 +1,11 @@
 import React from 'react'
 
-const ArmyAlignmentDropdown = props => {
+const ArmyNameDropdown = props => {
 	let dropdownOptions = props.options.map(option => {
 		return (
-			<option key={option} value={option}>{option}</option>
+			<option key={option.name} value={option.id}>
+				{option.name}
+			</option>
 		)
 	})
 
@@ -23,4 +25,4 @@ const ArmyAlignmentDropdown = props => {
 	)
 }
 	
-export default ArmyAlignmentDropdown
+export default ArmyNameDropdown
