@@ -548,7 +548,7 @@ class UnitUpdateFormContainer extends Component {
 		}
 
 		return (
-			<div className="form-container">
+			<div>
 				<form onSubmit={this.submitForm}>
 					<h2>Update Unit</h2>
 					{errorDiv}

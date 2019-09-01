@@ -206,7 +206,7 @@ class ArmyUpdateFormContainer extends Component {
 		}
 
 		return (
-			<div className="form-container">
+			<div>
 				<form onSubmit={this.submitForm}>
 					<h2>Update Army</h2>
 					{errorDiv}

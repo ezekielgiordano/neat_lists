@@ -41,7 +41,7 @@ class ArmiesIndexContainer extends Component {
 		})
 
 		return (
-			<div className="index-container">
+			<div>
 				<h2>Armies</h2>
 				{armyTiles}
 			</div>
