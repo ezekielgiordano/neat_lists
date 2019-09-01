@@ -146,35 +146,33 @@ class ArmiesFormContainer extends Component {
 		}
 
 		return (
-			<div className="form-container">
-				<form onSubmit={this.submitForm}>
-					<h2>Add New Army</h2>
-					{errorDiv}
-					{successDiv}
-					<div className="army-name-field">
-						<ArmyNameField
-							content={this.state.name}
-							label="Name:"
-							name="name"
-							handlerFunction={this.updateName}
-						/>
-					</div>
-					<div className="army-alignment-dropdown">
-						<ArmyAlignmentDropdown
-							options={this.state.alignmentOptions}
-							selection={this.state.alignment}
-							label="Alignment:"
-							name="alignment"
-							handlerFunction={this.updateAlignment}
-						/>
-					</div>
+			<form onSubmit={this.submitForm}>
+				<h2>Add New Army</h2>
+				{errorDiv}
+				{successDiv}
+				<div className="army-name-field">
+					<ArmyNameField
+						content={this.state.name}
+						label="Name:"
+						name="name"
+						handlerFunction={this.updateName}
+					/>
+				</div>
+				<div className="army-alignment-dropdown">
+					<ArmyAlignmentDropdown
+						options={this.state.alignmentOptions}
+						selection={this.state.alignment}
+						label="Alignment:"
+						name="alignment"
+						handlerFunction={this.updateAlignment}
+					/>
+				</div>
 
-					<div className="button-group">
-						<button onClick={this.clearForm}>Clear Form</button>
-						<input type="submit" value="Add" />
-					</div>
-				</form>
-			</div>
+				<div className="button-group">
+					<button onClick={this.clearForm}>Clear Form</button>
+					<input type="submit" value="Add" />
+				</div>
+			</form>
 		)
 	}
 }

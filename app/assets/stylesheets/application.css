@@ -24,6 +24,14 @@ li {
 
 textarea { width: 124px; }
 
+.admin-bar {
+	border: 1px solid #000000;
+}
+
+.navigation-link {
+	border: 1px solid #000000;
+}
+
 .error-div {
 	font-style: italic;
 	font-size: small;
@@ -31,12 +39,7 @@ textarea { width: 124px; }
 	margin-bottom: 10px;
 }
 
-.index-container {
-	border: 1px solid #000000;
-	padding: 10px;
-}
-
-.form-container {
+.admin-section-display {
 	border: 1px solid #000000;
 	padding: 10px;
 	margin: 10px 0px 10px 0px;
