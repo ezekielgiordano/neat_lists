@@ -18,18 +18,32 @@
 	font-family: Arial, sans-serif;
 }
 
-li {
-	list-style-type: none;
+li { list-style-type: none }
+
+button {
+	cursor: pointer;
+	user-select: none;
 }
 
 textarea { width: 124px; }
 
 .admin-bar {
-	border: 1px solid #000000;
+	padding: 10px 0px 10px 0px;
+	display: inline-block;
 }
 
 .navigation-link {
 	border: 1px solid #000000;
+	padding: 10px;
+	cursor: pointer;
+	user-select: none;
+}
+
+.admin-section-display {
+	border: 1px solid #000000;
+	padding: 10px;
+	margin: 10px 0px 10px 0px;
+	display: inline-block;
 }
 
 .error-div {
@@ -39,19 +53,17 @@ textarea { width: 124px; }
 	margin-bottom: 10px;
 }
 
-.admin-section-display {
-	border: 1px solid #000000;
-	padding: 10px;
-	margin: 10px 0px 10px 0px;
-}
-
 .delete-x {
 	user-select: none;
 	border: 1px solid #000000;
 	margin-right: 25px;
+	cursor: pointer;
 }
 
-.dropdown { width: 130px; }
+.dropdown {
+	width: 130px;
+	cursor: pointer;
+}
 
 .army-tile { margin: 5px 0px 5px 0px; }
 
@@ -59,17 +71,17 @@ textarea { width: 124px; }
 
 .button-group { margin-top: 10px; }
 
-.army-name-field { margin: 5px 0px 5px 29px; }
+.army-name-field { margin: 5px 0px 5px 28.5px; }
 
-.army-name-dropdown { margin: 5px 0px 5px 34.5px; }
+.army-name-dropdown { margin: 5px 0px 5px 34px; }
 
 .army-alignment-dropdown { margin: 5px 0px 5px 0px; }
 
-.unit-name-field { margin: 5px 0px 5px 51px; }
+.unit-name-field { margin: 5px 0px 5px 50.5px; }
 
 .unit-name-dropdown { margin: 5px 0px 5px 65px; }
 
-.unit-size-field { margin: 5px 0px 5px 30px; }
+.unit-size-field { margin: 5px 0px 5px 29.5px; }
 
 .unit-strength-field { margin: 5px 0px 5px 0px; }
 
@@ -77,7 +89,7 @@ textarea { width: 124px; }
 
 .unit-melee-field { margin: 5px 0px 5px 50px; }
 
-.unit-ranged-field { margin: 5px 0px 5px 38px; }
+.unit-ranged-field { margin: 5px 0px 5px 37.5px; }
 
 .unit-defense-field { margin: 5px 0px 5px 34px; }
 

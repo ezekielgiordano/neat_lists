@@ -542,7 +542,7 @@ class UnitsFormContainer extends Component {
 					<div className="unit-name-field">
 						<UnitNameField
 							content={this.state.name}
-							label="Name:"
+							label="Name: "
 							name="name"
 							handlerFunction={this.updateName}
 						/>
@@ -550,7 +550,7 @@ class UnitsFormContainer extends Component {
 					<div className="unit-size-field">
 						<UnitSizeField
 							content={this.state.unitSize}
-							label="Unit Size:"
+							label="Unit Size: "
 							name="unit-size"
 							handlerFunction={this.updateUnitSize}
 						/>
@@ -558,7 +558,7 @@ class UnitsFormContainer extends Component {
 					<div className="unit-strength-field">
 						<UnitStrengthField
 							content={this.state.unitStrength}
-							label="Unit Strength:"
+							label="Unit Strength: "
 							name="unit-strength"
 							handlerFunction={this.updateUnitStrength}
 						/>
@@ -566,7 +566,7 @@ class UnitsFormContainer extends Component {
 					<div className="unit-speed-field">
 						<UnitSpeedField
 							content={this.state.speed}
-							label="Speed:"
+							label="Speed: "
 							name="speed"
 							handlerFunction={this.updateSpeed}
 						/>
@@ -574,7 +574,7 @@ class UnitsFormContainer extends Component {
 					<div className="unit-melee-field">
 						<UnitMeleeField
 							content={this.state.melee}
-							label="Melee:"
+							label="Melee: "
 							name="melee"
 							handlerFunction={this.updateMelee}
 						/>
@@ -582,7 +582,7 @@ class UnitsFormContainer extends Component {
 					<div className="unit-ranged-field">
 						<UnitRangedField
 							content={this.state.ranged}
-							label="Ranged:"
+							label="Ranged: "
 							name="ranged"
 							handlerFunction={this.updateRanged}
 						/>
@@ -590,7 +590,7 @@ class UnitsFormContainer extends Component {
 					<div className="unit-defense-field">
 						<UnitDefenseField
 							content={this.state.defense}
-							label="Defense:"
+							label="Defense: "
 							name="defense"
 							handlerFunction={this.updateDefense}
 						/>
@@ -598,7 +598,7 @@ class UnitsFormContainer extends Component {
 					<div className="unit-attacks-field">
 						<UnitAttacksField
 							content={this.state.attacks}
-							label="Attacks:"
+							label="Attacks: "
 							name="attacks"
 							handlerFunction={this.updateAttacks}
 						/>
@@ -606,7 +606,7 @@ class UnitsFormContainer extends Component {
 					<div className="unit-points-field">
 						<UnitPointsField
 							content={this.state.points}
-							label="Points:"
+							label="Points: "
 							name="points"
 							handlerFunction={this.updatePoints}
 						/>
@@ -614,7 +614,7 @@ class UnitsFormContainer extends Component {
 					<div className="unit-special-field">
 						<UnitSpecialField
 							content={this.state.special}
-							label="Special:"
+							label="Special: "
 							name="special"
 							handlerFunction={this.updateSpecial}
 						/>
@@ -622,7 +622,7 @@ class UnitsFormContainer extends Component {
 					<div className="unit-army-dropdown">
 						<UnitArmyDropdown
 							selection={this.state.army}
-							label="Army:"
+							label="Army: "
 							name="army"
 							handlerFunction={this.updateArmy}
 						/>
@@ -630,7 +630,7 @@ class UnitsFormContainer extends Component {
 
 					<div className="button-group">
 						<button onClick={this.clearForm}>Clear Form</button>
-						<input type="submit" value="Add" />
+						<button type="submit">Add</button>
 					</div>
 				</form>
 			</div>

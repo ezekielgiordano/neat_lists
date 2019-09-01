@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2019_08_18_222254) do
     t.string "attacks", null: false
     t.integer "points", null: false
     t.text "special"
+    t.string "army_name", null: false
     t.bigint "army_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

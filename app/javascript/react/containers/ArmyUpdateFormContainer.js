@@ -215,7 +215,7 @@ class ArmyUpdateFormContainer extends Component {
 						<ArmyNameDropdown
 							options={this.state.armies}
 							selection={this.state.selectedArmy}
-							label="Army:"
+							label="Army: "
 							name="selectedArmy"
 							handlerFunction={this.updateSelectedArmy}
 						/>
@@ -223,7 +223,7 @@ class ArmyUpdateFormContainer extends Component {
 					<div className="army-name-field">
 						<ArmyNameField
 							content={this.state.name}
-							label="Name:"
+							label="Name: "
 							name="name"
 							handlerFunction={this.updateName}
 						/>
@@ -232,7 +232,7 @@ class ArmyUpdateFormContainer extends Component {
 						<ArmyAlignmentDropdown
 							options={this.state.alignmentOptions}
 							selection={this.state.alignment}
-							label="Alignment:"
+							label="Alignment: "
 							name="alignment"
 							handlerFunction={this.updateAlignment}
 						/>
@@ -240,7 +240,7 @@ class ArmyUpdateFormContainer extends Component {
 
 					<div className="button-group">
 						<button onClick={this.clearForm}>Clear Form</button>
-						<input type="submit" value="Update" />
+						<button type="submit">Update</button>
 					</div>
 				</form>
 			</div>
