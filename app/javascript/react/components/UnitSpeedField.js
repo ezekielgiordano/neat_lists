@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ArmyNameField = props => {
+const UnitSpeedField = props => {
 	return (
 	    <label>
 	    	{props.label}
@@ -14,4 +14,4 @@ const ArmyNameField = props => {
 	)
 }
 	
-export default ArmyNameField
+export default UnitSpeedField

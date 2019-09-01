@@ -1,31 +1,56 @@
 import React, { Component } from 'react'
+import ArmyNameDropdown from '../components/ArmyNameDropdown'
 import ArmyNameField from '../components/ArmyNameField'
 import ArmyAlignmentDropdown from '../components/ArmyAlignmentDropdown'
 
-class ArmiesFormContainer extends Component {
+class ArmyUpdateFormContainer extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			armies: [],
+			selectedArmy: {},
 			name: '',
 			alignment: '',
 			alignmentOptions: ['Good', 'Evil', 'Neutral'],
 			errors: {},
 			successMessage: ''
 		}
-		this.addToDatabase = this.addToDatabase.bind(this)
+		this.updateArmy = this.updateArmy.bind(this)
+		this.clearSelectedArmyErrors = this.clearSelectedArmyErrors.bind(this)
 		this.clearNameErrors = this.clearNameErrors.bind(this)
 		this.clearAlignmentErrors = this.clearAlignmentErrors.bind(this)
+		this.validateSelectedArmy = this.validateSelectedArmy.bind(this)
 		this.validateName = this.validateName.bind(this)
 		this.validateAlignment = this.validateAlignment.bind(this)
+		this.updateSelectedArmy = this.updateSelectedArmy.bind(this)
 		this.updateName = this.updateName.bind(this)
 		this.updateAlignment = this.updateAlignment.bind(this)
 		this.clearForm = this.clearForm.bind(this)
 		this.submitForm = this.submitForm.bind(this)
 	}
 
-	addToDatabase(dataToAdd) {
-		fetch('/api/v1/armies', {
-			method: 'POST',
+	componentDidMount() {
+		fetch('/api/v1/armies')
+		.then(response => {
+			if (response.ok) {
+				return response
+			} else {
+				let errorMessage = `${response.status} (${response.statusText})`,
+				error = new Error(errorMessage)
+				throw(error)
+			}
+		})
+		.then(response => response.json())
+		.then(body => {
+			this.setState({ armies: body })
+		})
+		.catch(error => console.error(`Error in fetch: ${error.message}`))
+		this.clearForm(event)
+	}
+
+	updateArmy(dataToAdd, id) {
+		fetch(`/api/v1/armies/${id}`, {
+			method: 'PUT',
 			body: JSON.stringify(dataToAdd),
 			credentials: 'same-origin',
         	headers: {'Content-Type': 'application/json'}
@@ -41,10 +66,16 @@ class ArmiesFormContainer extends Component {
 		})
 		.then(response => response.json())
 		.then(body => {
-			this.setState({ successMessage: 'Army added' })
+			this.setState({ successMessage: 'Army updated' })
 		})
 		.catch(error => console.error(`Error in fetch: ${error.message}`))
-	}	
+	}
+
+    clearSelectedArmyErrors(event) {
+		let errorState = this.state.errors
+		delete errorState.selectedArmy
+		this.setState({ errors: errorState })
+	}
 
 	clearNameErrors(event) {
 		let errorState = this.state.errors
@@ -56,6 +87,21 @@ class ArmiesFormContainer extends Component {
 		let errorState = this.state.errors
 		delete errorState.alignment
 		this.setState({ errors: errorState })
+	}
+
+	validateSelectedArmy(input) {
+		if (input === '' || input === {}) {
+			let newError = {
+				selectedArmy: 'You must select an army to update'
+			}
+			this.setState({
+				errors: Object.assign(this.state.errors, newError)
+			})
+			return false
+		} else {
+			this.clearSelectedArmyErrors()
+			return true
+		}
 	}
 
 	validateName(input) {
@@ -74,7 +120,7 @@ class ArmiesFormContainer extends Component {
 	}
 
 	validateAlignment(input) {
-		if (input.trim() === '') {
+		if (input === '') {
 			let newError = {
 				alignment: 'You must select an alignment'
 			}
@@ -86,6 +132,11 @@ class ArmiesFormContainer extends Component {
 			this.clearAlignmentErrors()
 			return true
 		}
+	}
+
+	updateSelectedArmy(event) {
+		this.clearSelectedArmyErrors()
+		this.setState({ selectedArmy: event.target.value })
 	}
 
 	updateName(event) {
@@ -106,6 +157,7 @@ class ArmiesFormContainer extends Component {
 	clearForm(event) {
 		event.preventDefault()
 		this.setState({
+			selectedArmy: '',
 			name: '',
 			alignment: '',
 			errors: {},
@@ -118,15 +170,23 @@ class ArmiesFormContainer extends Component {
 		let dataToAdd = {
 			name: '',
 			alignment: ''
-		}				
+		}
+		let id = ''
+		if (this.validateSelectedArmy(this.state.selectedArmy)) {
+			id = this.state.selectedArmy
+		}
 		if (this.validateName(this.state.name)) {
 			dataToAdd.name = this.state.name
 		}
 		if (this.validateAlignment(this.state.alignment)) {
 			dataToAdd.alignment = this.state.alignment
 		}
-		if (dataToAdd.name != '' && dataToAdd.alignment != '') {
-			this.addToDatabase(dataToAdd)
+		if (
+			id != '' &&
+			dataToAdd.name != '' &&
+			dataToAdd.alignment != ''
+		) {
+			this.updateArmy(dataToAdd, id)
 			this.clearForm(event)
 		}
 	}
@@ -148,9 +208,18 @@ class ArmiesFormContainer extends Component {
 		return (
 			<div className="form-container">
 				<form onSubmit={this.submitForm}>
-					<h2>Add New Army</h2>
+					<h2>Update Army</h2>
 					{errorDiv}
 					{successDiv}
+					<div className="army-name-dropdown">
+						<ArmyNameDropdown
+							options={this.state.armies}
+							selection={this.state.selectedArmy}
+							label="Army:"
+							name="selectedArmy"
+							handlerFunction={this.updateSelectedArmy}
+						/>
+					</div>
 					<div className="army-name-field">
 						<ArmyNameField
 							content={this.state.name}
@@ -171,7 +240,7 @@ class ArmiesFormContainer extends Component {
 
 					<div className="button-group">
 						<button onClick={this.clearForm}>Clear Form</button>
-						<input type="submit" value="Add" />
+						<input type="submit" value="Update" />
 					</div>
 				</form>
 			</div>
@@ -179,4 +248,4 @@ class ArmiesFormContainer extends Component {
 	}
 }
 
-export default ArmiesFormContainer
+export default ArmyUpdateFormContainer

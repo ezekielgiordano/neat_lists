@@ -2,10 +2,9 @@ class Api::V1::ArmiesController < ApiController
   	def index
         unsorted_armies = Army.all
         armies = unsorted_armies.sort {
-            |x, y| x.name.sub(/^(the|a|an)\s/i, "").downcase <=>
-            y.name.sub(/^(the|a|an)\s/i, "").downcase
+            |x, y| x.name.sub(/^(A|An|The)\s/i, "").downcase <=>
+            y.name.sub(/^(A|An|The)\s/i, "").downcase
         }
-
     	render json: armies
   	end
 
@@ -21,16 +20,19 @@ class Api::V1::ArmiesController < ApiController
   		if army.save
   			render json: army
   		else
-  			render json: { error: army.errors.full_messages.join(' * ') }
+  			render json: { error: army.errors.full_messages.join(" * ") }
   		end
   	end
 
   	def update
   		army = Army.find(params[:id])
-  		if army.update(army_data)
+  		if army.update(
+            name: params[:name],
+            alignment: params[:alignment]
+        )
   			render json: { army: army }
   		else
-  			render json: { error: army.errors.full_messages.join(' * ') }
+  			render json: { error: army.errors.full_messages.join(" * ") }
   		end
   	end
 

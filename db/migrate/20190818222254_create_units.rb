@@ -9,7 +9,7 @@ class CreateUnits < ActiveRecord::Migration[6.0]
     		t.string :ranged, null: false
     		t.string :defense, null: false
     		t.string :attacks, null: false
-    		t.string :points, null: false
+    		t.integer :points, null: false
     		t.text :special
 
     		t.belongs_to :army
