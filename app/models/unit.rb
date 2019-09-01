@@ -8,10 +8,11 @@ class Unit < ApplicationRecord
     validates :defense, presence: true
     validates :attacks, presence: true
     validates :points, presence: true, numericality: true
+    validates :army_name, presence: true
 
 	belongs_to :army
 
-    def army_name
+    def army_name_from_id
         Army.find_by_id(self.army_id).name
     end
 end

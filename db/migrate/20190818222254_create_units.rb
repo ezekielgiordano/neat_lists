@@ -11,6 +11,7 @@ class CreateUnits < ActiveRecord::Migration[6.0]
     		t.string :attacks, null: false
     		t.integer :points, null: false
     		t.text :special
+            t.string :army_name, null: false
 
     		t.belongs_to :army
 

@@ -71,27 +71,22 @@ class App extends Component {
 					<span onClick={this.showArmiesIndexContainer} className="navigation-link">
 						All Armies
 					</span>
-					<span>{' '}*{' '}</span>
 					<span onClick={this.showArmiesFormContainer} className="navigation-link">
 						Add Army
 					</span>
-					<span>{' '}*{' '}</span>
 					<span onClick={this.showArmyUpdateFormContainer} className="navigation-link">
 						Update Army
 					</span>
-					<span>{' '}*{' '}</span>
 					<span onClick={this.showUnitsIndexContainer} className="navigation-link">
 						All Units
 					</span>
-					<span>{' '}*{' '}</span>
 					<span onClick={this.showUnitsFormContainer} className="navigation-link">
 						Add Unit
 					</span>
-					<span>{' '}*{' '}</span>
 					<span onClick={this.showUnitUpdateFormContainer} className="navigation-link">
 						Update Unit
 					</span>
-				</div>
+				</div><br />
 				<div className="admin-section-display">{display}</div>
 			</div>
 		)

@@ -26,7 +26,8 @@ class Api::V1::UnitsController < ApiController
   			attacks: params[:attacks],
   			points: params[:points],
   			special: params[:special],
-        army_id: params[:army_id]
+        army_id: params[:army_id],
+        army_name: Army.find_by_id(params[:army_id]).name
   		})
   		if unit.save
   			render json: unit
@@ -48,7 +49,8 @@ class Api::V1::UnitsController < ApiController
   			attacks: params[:attacks],
   			points: params[:points],
   			special: params[:special],
-        army_id: unit.army_id
+        army_id: unit.army_id,
+        army_name: Army.find_by_id(unit.army_id).name
   		})
   			render json: { unit: unit }
   		else
