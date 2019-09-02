@@ -1,6 +1,4 @@
 class Api::V1::UnitsController < ApiController
- 	protect_from_forgery unless: -> { request.format.json? }
-
   	def index
     	unsorted_units = Unit.all
         units = unsorted_units.sort {
@@ -26,13 +24,13 @@ class Api::V1::UnitsController < ApiController
   			attacks: params[:attacks],
   			points: params[:points],
   			special: params[:special],
-        army_id: params[:army_id],
-        army_name: Army.find_by_id(params[:army_id]).name
+            army_id: params[:army_id],
+            army_name: Army.find_by_id(params[:army_id]).name
   		})
   		if unit.save
   			render json: unit
   		else
-  			render json: { error: unit.errors.full_message.join(" * ") }
+  			render json: { error: unit.errors.full_messages.join(' * ') }
   		end
   	end
 
@@ -49,12 +47,12 @@ class Api::V1::UnitsController < ApiController
   			attacks: params[:attacks],
   			points: params[:points],
   			special: params[:special],
-        army_id: unit.army_id,
-        army_name: Army.find_by_id(unit.army_id).name
+            army_id: unit.army_id,
+            army_name: Army.find_by_id(unit.army_id).name
   		})
   			render json: { unit: unit }
   		else
-  			render json: { error: unit.errors.full_messages.join(" * ") }
+  			render json: { error: unit.errors.full_messages.join(' * ') }
   		end
   	end
 

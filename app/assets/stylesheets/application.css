@@ -27,8 +27,10 @@ button {
 
 textarea { width: 124px; }
 
-.admin-bar {
+
+.navigation-bar {
 	padding: 10px 0px 10px 0px;
+	margin: 7.5px 0px 7.5px 0px;
 	display: inline-block;
 }
 
@@ -39,10 +41,10 @@ textarea { width: 124px; }
 	user-select: none;
 }
 
-.admin-section-display {
+.display-box {
 	border: 1px solid #000000;
 	padding: 10px;
-	margin: 10px 0px 10px 0px;
+	margin: 7.5px 0px 7.5px 0px;
 	display: inline-block;
 }
 
@@ -100,3 +102,13 @@ textarea { width: 124px; }
 .unit-special-field { margin: 5px 0px 5px 41px; }
 
 .unit-army-dropdown { margin: 5px 0px 5px 57px; }
+
+.username-field { margin: 5px 0px 5px 90.5px; }
+
+.email-field { margin: 5px 0px 5px 61px; }
+
+.email-confirmation-field { margin: 5px 0px 5px 0px; }
+
+.password-field { margin: 5px 0px 5px 94px; }
+
+.password-confirmation-field { margin: 5px 0px 5px 33px; }

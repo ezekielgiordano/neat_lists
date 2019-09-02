@@ -30,7 +30,7 @@ class UnitUpdateFormContainer extends Component {
 			errors: {},
 			successMessage: ''
 		}
-		this.updateUnit = this.updateUnit.bind(this)
+		this.updateDatabase = this.updateDatabase.bind(this)
 		this.clearSelectedUnitErrors = this.clearSelectedUnitErrors.bind(this)
 		this.clearNameErrors = this.clearNameErrors.bind(this)
 		this.clearUnitSizeErrors = this.clearUnitSizeErrors.bind(this)
@@ -87,7 +87,7 @@ class UnitUpdateFormContainer extends Component {
 		this.clearForm(event)
 	}
 
-	updateUnit(dataToAdd, id) {
+	updateDatabase(id, dataToAdd) {
 		fetch(`/api/v1/units/${id}`, {
 			method: 'PUT',
 			body: JSON.stringify(dataToAdd),
@@ -529,7 +529,7 @@ class UnitUpdateFormContainer extends Component {
 			dataToAdd.points != '' &&
 			dataToAdd.special != ''
 		) {
-			this.updateUnit(dataToAdd, id)
+			this.updateDatabase(id, dataToAdd)
 			this.clearForm(event)
 		}
 	}
@@ -645,8 +645,8 @@ class UnitUpdateFormContainer extends Component {
 					</div>
 
 					<div className="button-group">
-						<button onClick={this.clearForm}>Clear Form</button>
 						<button type="submit">Update</button>
+						<button onClick={this.clearForm}>Clear Form</button>
 					</div>
 				</form>
 			</div>

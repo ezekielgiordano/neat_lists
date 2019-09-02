@@ -629,8 +629,8 @@ class UnitsFormContainer extends Component {
 					</div>
 
 					<div className="button-group">
-						<button onClick={this.clearForm}>Clear Form</button>
 						<button type="submit">Add</button>
+						<button onClick={this.clearForm}>Clear Form</button>
 					</div>
 				</form>
 			</div>

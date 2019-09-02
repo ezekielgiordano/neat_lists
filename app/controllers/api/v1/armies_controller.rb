@@ -20,7 +20,7 @@ class Api::V1::ArmiesController < ApiController
   		if army.save
   			render json: army
   		else
-  			render json: { error: army.errors.full_messages.join(" * ") }
+  			render json: { error: army.errors.full_messages.join(' * ') }
   		end
   	end
 
@@ -32,7 +32,7 @@ class Api::V1::ArmiesController < ApiController
         )
   			render json: { army: army }
   		else
-  			render json: { error: army.errors.full_messages.join(" * ") }
+  			render json: { error: army.errors.full_messages.join(' * ') }
   		end
   	end
 
