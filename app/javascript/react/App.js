@@ -1,93 +1,98 @@
 import React, { Component } from 'react'
-import ArmiesIndexContainer from './containers/ArmiesIndexContainer'
-import ArmiesFormContainer from './containers/ArmiesFormContainer'
-import ArmyUpdateFormContainer from './containers/ArmyUpdateFormContainer'
-import UnitsIndexContainer from './containers/UnitsIndexContainer'
-import UnitsFormContainer from './containers/UnitsFormContainer'
-import UnitUpdateFormContainer from './containers/UnitUpdateFormContainer'
+import AdminSectionContainer from './containers/AdminSectionContainer'
+import NonAdminSectionContainer from './containers/NonAdminSectionContainer'
+import UsersFormContainer from './containers/UsersFormContainer'
+import UserUpdateFormContainer from './containers/UserUpdateFormContainer'
+import SessionsFormContainer from './containers/SessionsFormContainer'
 
 class App extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			display: 'unitsIndexContainer'
+			user: '',
+			userFormDisplay: 'signInForm',
+			mainDisplay: ''
 		}
-		this.showArmiesIndexContainer = this.showArmiesIndexContainer.bind(this)
-		this.showArmiesFormContainer = this.showArmiesFormContainer.bind(this)
-		this.showArmyUpdateFormContainer = this.showArmyUpdateFormContainer.bind(this)
-		this.showUnitsIndexContainer = this.showUnitsIndexContainer.bind(this)
-		this.showUnitsFormContainer = this.showUnitsFormContainer.bind(this)
-		this.showUnitUpdateFormContainer = this.showUnitUpdateFormContainer.bind(this)
+		this.showSignUpForm = this.showSignUpForm.bind(this)
+		this.showSignInForm = this.showSignInForm.bind(this)
+		this.showAccountSettingsForm = this.showAccountSettingsForm.bind(this)
 	}
 
-	showArmiesIndexContainer() {
-		this.setState({ display: 'armiesIndexContainer' })
+	showSignUpForm() {
+		this.setState({ userFormDisplay: 'signUpForm' })
 	}
 
-	showArmiesFormContainer() {
-		this.setState({ display: 'armiesFormContainer' })
+	showSignInForm() {
+		this.setState({ userFormDisplay: 'signInForm' })
 	}
 
-	showArmyUpdateFormContainer() {
-		this.setState({ display: 'armyUpdateFormContainer' })
-	}
-
-	showUnitsIndexContainer() {
-		this.setState({ display: 'unitsIndexContainer' })
-	}
-
-	showUnitsFormContainer() {
-		this.setState({ display: 'unitsFormContainer' })
-	}
-
-	showUnitUpdateFormContainer() {
-		this.setState({ display: 'unitUpdateFormContainer' })
+	showAccountSettingsForm() {
+		this.setState({ userFormDisplay: 'accountSettingsForm' })
 	}
 
 	render() {
-		let display	
-		if (this.state.display === 'armiesIndexContainer') {
-			display = <ArmiesIndexContainer />
+		let accountAndSessionDisplay
+		if (this.state.user === '') {
+			accountAndSessionDisplay =
+				<div className="navigation-bar">
+					<span onClick={this.showSignInForm} className="navigation-link">
+						Sign In
+					</span>
+					<span onClick={this.showSignUpForm} className="navigation-link">
+						Sign Up
+					</span>
+				</div>
+		} else {
+			accountAndSessionDisplay =
+				<div className="navigation-bar">
+					<span className="navigation-link">
+						Sign Out
+					</span>
+					<span onClick={this.showAccountSettingsForm} className="navigation-link">
+						Update Account Information
+					</span>
+				</div>
 		}
-		if (this.state.display === 'armiesFormContainer') {
-			display = <ArmiesFormContainer />
+
+		let userFormDisplay
+		if (this.state.userFormDisplay === 'signUpForm') {
+			userFormDisplay =
+				<div className="display-box">
+					<UsersFormContainer />
+				</div>
 		}
-		if (this.state.display === 'armyUpdateFormContainer') {
-			display = <ArmyUpdateFormContainer />
+		if (this.state.userFormDisplay === 'signInForm') {
+			userFormDisplay =
+				<div className="display-box">
+					<SessionsFormContainer />
+				</div>
 		}
-		if (this.state.display === 'unitsIndexContainer') {
-			display = <UnitsIndexContainer />
-		}
-		if (this.state.display === 'unitsFormContainer') {
-			display = <UnitsFormContainer />
-		}
-		if (this.state.display === 'unitUpdateFormContainer') {
-			display = <UnitUpdateFormContainer />
+		if (this.state.userFormDisplay === 'accountSettingsForm') {
+			userFormDisplay =
+				<div className="display-box">
+					<UserUpdateFormContainer 
+						key={this.state.user.id}
+						id={this.state.user.id}
+						username={this.state.user.username}
+						role={this.state.user.role}
+					/>
+				</div>
+		}		
+
+		let mainDisplay
+		if (this.state.mainDisplay === '') {
+			mainDisplay =
+				<div>				
+					<AdminSectionContainer />
+					<NonAdminSectionContainer />
+				</div>
 		}
 
 		return (
 			<div>
-				<div className="admin-bar">
-					<span onClick={this.showArmiesIndexContainer} className="navigation-link">
-						All Armies
-					</span>
-					<span onClick={this.showArmiesFormContainer} className="navigation-link">
-						Add Army
-					</span>
-					<span onClick={this.showArmyUpdateFormContainer} className="navigation-link">
-						Update Army
-					</span>
-					<span onClick={this.showUnitsIndexContainer} className="navigation-link">
-						All Units
-					</span>
-					<span onClick={this.showUnitsFormContainer} className="navigation-link">
-						Add Unit
-					</span>
-					<span onClick={this.showUnitUpdateFormContainer} className="navigation-link">
-						Update Unit
-					</span>
-				</div><br />
-				<div className="admin-section-display">{display}</div>
+				{accountAndSessionDisplay}<br />
+				{userFormDisplay}
+				{mainDisplay}
 			</div>
 		)
 	}

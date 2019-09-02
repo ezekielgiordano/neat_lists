@@ -15,7 +15,7 @@ class ArmyUpdateFormContainer extends Component {
 			errors: {},
 			successMessage: ''
 		}
-		this.updateArmy = this.updateArmy.bind(this)
+		this.updateDatabase = this.updateDatabase.bind(this)
 		this.clearSelectedArmyErrors = this.clearSelectedArmyErrors.bind(this)
 		this.clearNameErrors = this.clearNameErrors.bind(this)
 		this.clearAlignmentErrors = this.clearAlignmentErrors.bind(this)
@@ -48,7 +48,7 @@ class ArmyUpdateFormContainer extends Component {
 		this.clearForm(event)
 	}
 
-	updateArmy(dataToAdd, id) {
+	updateDatabase(id, dataToAdd) {
 		fetch(`/api/v1/armies/${id}`, {
 			method: 'PUT',
 			body: JSON.stringify(dataToAdd),
@@ -186,7 +186,7 @@ class ArmyUpdateFormContainer extends Component {
 			dataToAdd.name != '' &&
 			dataToAdd.alignment != ''
 		) {
-			this.updateArmy(dataToAdd, id)
+			this.updateDatabase(id, dataToAdd)
 			this.clearForm(event)
 		}
 	}
@@ -239,8 +239,8 @@ class ArmyUpdateFormContainer extends Component {
 					</div>
 
 					<div className="button-group">
-						<button onClick={this.clearForm}>Clear Form</button>
 						<button type="submit">Update</button>
+						<button onClick={this.clearForm}>Clear Form</button>
 					</div>
 				</form>
 			</div>

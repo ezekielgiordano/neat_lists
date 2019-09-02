@@ -13,3 +13,14 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from '../react/App'
+
+document.addEventListener('DOMContentLoaded', () => {
+  	ReactDOM.render(
+    	<App />,
+    	document.getElementById('app'),
+  	)
+})
