@@ -11,6 +11,7 @@ class ArmiesIndexContainer extends Component {
 			nameToDelete: '',
 			deletionSuccessMessage: ''
 		}
+		this.deleteFromDatabase = this.deleteFromDatabase.bind(this)
 		this.showDeletionTile = this.showDeletionTile.bind(this)
 		this.hideDeletionTile = this.hideDeletionTile.bind(this)
 		this.showDeletionSuccessMessage = this.showDeletionSuccessMessage.bind(this)
@@ -34,8 +35,43 @@ class ArmiesIndexContainer extends Component {
 		.catch(error => console.error(`Error in fetch: ${error.message}`))
 	}
 
+	deleteFromDatabase() {
+		fetch(`/api/v1/armies/${this.state.idToDelete}`, {
+			method: 'DELETE',
+			credentials: 'same-origin',
+        	headers: {'Content-Type': 'application/json'}
+		})
+		.then(response => {
+			if (response.ok) {
+				return response
+			} else {
+				let errorMessage = `${response.status} (${response.statusText})`,
+				error = new Error(errorMessage)
+				throw(error)
+			}
+		})
+		.then(response => response.json())
+		.then(body => {
+			let updatedArmies = []
+			let i
+			for (i = 0; i < this.state.armies.length; i++) {
+				if (this.state.armies[i].id !== body.army.id) {
+					updatedArmies.push(this.state.armies[i])
+				}
+			}
+			this.setState({ armies: updatedArmies })
+		})
+		.catch(error => console.error(`Error in fetch: ${error.message}`))
+		this.hideDeletionTile()
+		this.showDeletionSuccessMessage()
+	}	
+
 	showDeletionTile(id, name) {
-		this.setState({ idToDelete: id, nameToDelete: name })
+		this.setState({
+			idToDelete: id,
+			nameToDelete: name,
+			deletionSuccessMessage: ''
+		 })
 	}
 
 	hideDeletionTile() {
@@ -67,6 +103,7 @@ class ArmiesIndexContainer extends Component {
 					key={this.state.idToDelete}
 					id={this.state.idToDelete}
 					name={this.state.nameToDelete}
+					deleteFromDatabase={this.deleteFromDatabase}
 					hideDeletionTile={this.hideDeletionTile}
 					showDeletionSuccessMessage={this.showDeletionSuccessMessage}
 				/>		
