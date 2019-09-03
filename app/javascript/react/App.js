@@ -13,17 +13,17 @@ class App extends Component {
 			userFormDisplay: 'signInForm',
 			mainDisplay: ''
 		}
-		this.showSignUpForm = this.showSignUpForm.bind(this)
 		this.showSignInForm = this.showSignInForm.bind(this)
+		this.showSignUpForm = this.showSignUpForm.bind(this)
 		this.showAccountSettingsForm = this.showAccountSettingsForm.bind(this)
-	}
-
-	showSignUpForm() {
-		this.setState({ userFormDisplay: 'signUpForm' })
 	}
 
 	showSignInForm() {
 		this.setState({ userFormDisplay: 'signInForm' })
+	}
+
+	showSignUpForm() {
+		this.setState({ userFormDisplay: 'signUpForm' })
 	}
 
 	showAccountSettingsForm() {
@@ -35,20 +35,33 @@ class App extends Component {
 		if (this.state.user === '') {
 			accountAndSessionDisplay =
 				<div className="navigation-bar">
-					<span onClick={this.showSignInForm} className="navigation-link">
+					<span
+						onClick={this.showSignInForm}
+						name="signInForm"
+						className="account-link selected-link"
+					>
 						Sign In
 					</span>
-					<span onClick={this.showSignUpForm} className="navigation-link">
+					<span
+						onClick={this.showSignUpForm}
+						name="signUpForm"
+						className="account-link"
+					>
 						Sign Up
 					</span>
 				</div>
 		} else {
 			accountAndSessionDisplay =
 				<div className="navigation-bar">
-					<span className="navigation-link">
+					<span
+						className="account-link"
+					>
 						Sign Out
 					</span>
-					<span onClick={this.showAccountSettingsForm} className="navigation-link">
+					<span
+						onClick={this.showAccountSettingsForm}
+						className="account-link"
+					>
 						Update Account Information
 					</span>
 				</div>
@@ -77,7 +90,7 @@ class App extends Component {
 						role={this.state.user.role}
 					/>
 				</div>
-		}		
+		}
 
 		let mainDisplay
 		if (this.state.mainDisplay === '') {
@@ -86,6 +99,17 @@ class App extends Component {
 					<AdminSectionContainer />
 					<NonAdminSectionContainer />
 				</div>
+		}
+
+		let links = document.getElementsByClassName('account-link')
+		let i
+		for (i = 0; i < links.length; i++) {
+			let linkName = links[i].getAttribute('name')
+			if (linkName === this.state.userFormDisplay) {
+				links[i].classList.add('selected-link')
+			} else {
+				links[i].classList.remove('selected-link')
+			}
 		}
 
 		return (

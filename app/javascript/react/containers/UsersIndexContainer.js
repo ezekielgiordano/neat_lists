@@ -36,34 +36,36 @@ class UsersIndexContainer extends Component {
 	}
 
 	deleteFromDatabase() {
-		fetch(`/api/v1/users/${this.state.idToDelete}`, {
-			method: 'DELETE',
-			credentials: 'same-origin',
-        	headers: {'Content-Type': 'application/json'}
-		})
-		.then(response => {
-			if (response.ok) {
-				return response
-			} else {
-				let errorMessage = `${response.status} (${response.statusText})`,
-				error = new Error(errorMessage)
-				throw(error)
-			}
-		})
-		.then(response => response.json())
-		.then(body => {
-			let updatedUsers = []
-			let i
-			for (i = 0; i < this.state.users.length; i++) {
-				if (this.state.users[i].id !== body.user.id) {
-					updatedUsers.push(this.state.users[i])
+		if (window.confirm('Delete?')) {
+			fetch(`/api/v1/users/${this.state.idToDelete}`, {
+				method: 'DELETE',
+				credentials: 'same-origin',
+	        	headers: {'Content-Type': 'application/json'}
+			})
+			.then(response => {
+				if (response.ok) {
+					return response
+				} else {
+					let errorMessage = `${response.status} (${response.statusText})`,
+					error = new Error(errorMessage)
+					throw(error)
 				}
-			}
-			this.setState({ users: updatedUsers })
-		})
-		.catch(error => console.error(`Error in fetch: ${error.message}`))
-		this.hideDeletionTile()
-		this.showDeletionSuccessMessage()
+			})
+			.then(response => response.json())
+			.then(body => {
+				let updatedUsers = []
+				let i
+				for (i = 0; i < this.state.users.length; i++) {
+					if (this.state.users[i].id !== body.user.id) {
+						updatedUsers.push(this.state.users[i])
+					}
+				}
+				this.setState({ users: updatedUsers })
+			})
+			.catch(error => console.error(`Error in fetch: ${error.message}`))
+			this.hideDeletionTile()
+			this.showDeletionSuccessMessage()
+		}
 	}
 
 	showDeletionTile(id, name) {

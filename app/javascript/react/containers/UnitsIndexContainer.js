@@ -36,34 +36,36 @@ class UnitsIndexContainer extends Component {
 	}
 
 	deleteFromDatabase() {
-		fetch(`/api/v1/units/${this.state.idToDelete}`, {
-			method: 'DELETE',
-			credentials: 'same-origin',
-        	headers: {'Content-Type': 'application/json'}
-		})
-		.then(response => {
-			if (response.ok) {
-				return response
-			} else {
-				let errorMessage = `${response.status} (${response.statusText})`,
-				error = new Error(errorMessage)
-				throw(error)
-			}
-		})
-		.then(response => response.json())
-		.then(body => {
-			let updatedUnits = []
-			let i
-			for (i = 0; i < this.state.units.length; i++) {
-				if (this.state.units[i].id !== body.unit.id) {
-					updatedUnits.push(this.state.units[i])
+		if (window.confirm('Delete?')) {
+			fetch(`/api/v1/units/${this.state.idToDelete}`, {
+				method: 'DELETE',
+				credentials: 'same-origin',
+	        	headers: {'Content-Type': 'application/json'}
+			})
+			.then(response => {
+				if (response.ok) {
+					return response
+				} else {
+					let errorMessage = `${response.status} (${response.statusText})`,
+					error = new Error(errorMessage)
+					throw(error)
 				}
-			}
-			this.setState({ units: updatedUnits })
-		})
-		.catch(error => console.error(`Error in fetch: ${error.message}`))
-		this.hideDeletionTile()
-		this.showDeletionSuccessMessage()
+			})
+			.then(response => response.json())
+			.then(body => {
+				let updatedUnits = []
+				let i
+				for (i = 0; i < this.state.units.length; i++) {
+					if (this.state.units[i].id !== body.unit.id) {
+						updatedUnits.push(this.state.units[i])
+					}
+				}
+				this.setState({ units: updatedUnits })
+			})
+			.catch(error => console.error(`Error in fetch: ${error.message}`))
+			this.hideDeletionTile()
+			this.showDeletionSuccessMessage()
+		}
 	}	
 
 	showDeletionTile(id, name) {

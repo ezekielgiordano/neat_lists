@@ -74,31 +74,71 @@ class AdminSectionContainer extends Component {
 			display = <UsersIndexContainer />
 		}
 
+		let links = document.getElementsByClassName('admin-link')
+		let i
+		for (i = 0; i < links.length; i++) {
+			let linkName = links[i].getAttribute('name')
+			if (linkName === this.state.display) {
+				links[i].classList.add('selected-link')
+			} else {
+				links[i].classList.remove('selected-link')
+			}
+		}
+
 		return (
 			<div>
 				<div className="navigation-bar">
-					<span onClick={this.showArmiesIndexContainer} className="navigation-link">
+					<span 
+						onClick={this.showArmiesIndexContainer}
+						name="armiesIndexContainer"
+						className="admin-link"
+					>
 						All Armies
 					</span>
-					<span onClick={this.showArmiesFormContainer} className="navigation-link">
+					<span
+						onClick={this.showArmiesFormContainer}
+						name="armiesFormContainer"
+						className="admin-link"
+					>
 						Add Army
 					</span>
-					<span onClick={this.showArmyUpdateFormContainer} className="navigation-link">
+					<span
+						onClick={this.showArmyUpdateFormContainer}
+						name="armyUpdateFormContainer"
+						className="admin-link"
+					>
 						Update Army
 					</span>
-					<span onClick={this.showUnitsIndexContainer} className="navigation-link">
+					<span
+						onClick={this.showUnitsIndexContainer}
+						name="unitsIndexContainer"
+						className="admin-link selected-link"
+					>
 						All Units
 					</span>
-					<span onClick={this.showUnitsFormContainer} className="navigation-link">
+					<span
+						onClick={this.showUnitsFormContainer}
+						name="unitsFormContainer"
+						className="admin-link"
+					>
 						Add Unit
 					</span>
-					<span onClick={this.showUnitUpdateFormContainer} className="navigation-link">
+					<span
+						onClick={this.showUnitUpdateFormContainer}
+						name="unitUpdateFormContainer"
+						className="admin-link"
+					>
 						Update Unit
 					</span>
-					<span onClick={this.showUsersIndexContainer} className="navigation-link">
+					<span
+						onClick={this.showUsersIndexContainer}
+						name="usersIndexContainer"
+						className="admin-link"
+					>
 						All Users
 					</span>
 				</div><br />
+
 				<div className="display-box">{display}</div>
 			</div>
 		)

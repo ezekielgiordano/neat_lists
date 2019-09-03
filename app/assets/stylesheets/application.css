@@ -27,18 +27,28 @@ button {
 
 textarea { width: 124px; }
 
-
 .navigation-bar {
 	padding: 10px 0px 10px 0px;
 	margin: 7.5px 0px 7.5px 0px;
 	display: inline-block;
 }
 
-.navigation-link {
+.admin-link {
 	border: 1px solid #000000;
 	padding: 10px;
 	cursor: pointer;
 	user-select: none;
+}
+
+.account-link {
+	border: 1px solid #000000;
+	padding: 10px;
+	cursor: pointer;
+	user-select: none;
+}
+
+.selected-link {
+	background-color: #D3D3D3;
 }
 
 .display-box {
